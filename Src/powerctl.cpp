@@ -1,7 +1,8 @@
+module;
+#include <sys/reboot.h>
+
 export module powerctl;
 import <iostream>;
-#include <sys/reboot.h>    /* Definition of RB_* constants */
-#include <unistd.h>
 
 namespace power {
 	export void off()
