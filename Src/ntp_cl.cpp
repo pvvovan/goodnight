@@ -4,6 +4,7 @@ module;
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <arpa/inet.h>
 
 export module ntp;
 import <iostream>;
@@ -11,9 +12,9 @@ import <string>;
 
 namespace ntp {
 	struct packet {
-		uint8_t LI: 2; // Leap Indicator, Warning of leap second insertion or deletion
-		uint8_t VN: 3; // Version Number, NTP version number, typically 4
 		uint8_t Mode: 3; // Association mode
+		uint8_t VN: 3; // Version Number, NTP version number, typically 4
+		uint8_t LI: 2; // Leap Indicator, Warning of leap second insertion or deletion
 		uint8_t Stratum: 8; // Indicates the distance from the reference clock
 		uint8_t Poll: 8; // Maximum interval between successive messages, in log₂(seconds). Typical range is 6 to 10.
 		uint8_t Precision: 8; // Signed log₂(seconds) of system clock precision (e.g., –18 ≈ 1 microsecond)
@@ -57,8 +58,9 @@ namespace ntp {
 					continue;
 
 				::setsockopt(sfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout_time_value, sizeof(timeout_time_value));
-				if (::connect(sfd, rp->ai_addr, rp->ai_addrlen) != -1)
+				if (::connect(sfd, rp->ai_addr, rp->ai_addrlen) != -1) {
 					break; /* Success */
+				}
 
 				::close(sfd);
 			}
@@ -75,6 +77,8 @@ namespace ntp {
 			}
 
 			std::cerr << "read ok: " << nread << std::endl;
+			std::cerr << ::ntohl(static_cast<uint32_t>(pkt.TransmitTimestamp)) % (24 * 3600) / 3600 + 2 << std::endl;
+			std::cerr << ::ntohl(static_cast<uint32_t>(pkt.TransmitTimestamp)) % 3600 / 60 << std::endl;
 			::close(sfd);
 
 			return 0;
