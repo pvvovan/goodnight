@@ -13,4 +13,6 @@ if [ ! -d ${DEBUG_DIR} ]; then
 fi
 
 cd ${DEBUG_DIR}
-g++ ${SCRIPT_DIR}/Src/main.cpp --std=c++23 -fmodules-ts -o ${DEBUG_DIR}/goodnight.elf
+g++ --std=c++23 -fmodules-ts -o ${DEBUG_DIR}/goodnight.elf \
+	${SCRIPT_DIR}/Src/powerctl.cpp \
+	${SCRIPT_DIR}/Src/main.cpp

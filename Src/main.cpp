@@ -1,6 +1,6 @@
-import <iostream>;
+import powerctl;
 
 int main()
 {
-	std::cout << "Good night!" << std::endl;
+	power::off();
 }
