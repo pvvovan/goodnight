@@ -1,14 +1,13 @@
 module;
-#include <unistd.h>
 #include <cstdint>
+#include <cstdlib>
+#include <unistd.h>
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netdb.h>
 #include <arpa/inet.h>
 
 export module ntp;
-import <iostream>;
-import <string>;
 
 namespace ntp {
 	struct packet {
@@ -69,19 +68,19 @@ namespace ntp {
 			if (rp == nullptr) /* No address succeeded */
 				::exit(EXIT_FAILURE);
 
-			::write(sfd, &pkt, sizeof(pkt));
-			ssize_t nread = ::read(sfd, &pkt, sizeof(pkt));
-			if (nread == -1) {
-				std::cerr << "read fail" << std::endl;
+			ssize_t nwrite = ::write(sfd, &pkt, sizeof(pkt));
+			if (nwrite != sizeof(pkt)) {
 				::exit(EXIT_FAILURE);
 			}
 
-			std::cerr << "read ok: " << nread << std::endl;
-			std::cerr << ::ntohl(static_cast<uint32_t>(pkt.TransmitTimestamp)) % (24 * 3600) / 3600 + 2 << std::endl;
-			std::cerr << ::ntohl(static_cast<uint32_t>(pkt.TransmitTimestamp)) % 3600 / 60 << std::endl;
+			ssize_t nread = ::read(sfd, &pkt, sizeof(pkt));
+			if (nread == -1) {
+				::exit(EXIT_FAILURE);
+			}
+
 			::close(sfd);
 
-			return 0;
+			return ::ntohl(static_cast<uint32_t>(pkt.TransmitTimestamp));
 		}
 	};
 }
