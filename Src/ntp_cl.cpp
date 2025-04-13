@@ -29,7 +29,7 @@ namespace ntp {
 	};
 	export class client {
 		public:
-		unsigned long long get_time() {
+		unsigned long long get_epoch() {
 			packet pkt { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			pkt.LI = 0; // no warning
 			pkt.VN = 0b011; // ntp version number 3

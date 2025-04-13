@@ -17,4 +17,6 @@ g++ --std=c++23 -fmodules-ts -o ${DEBUG_DIR}/goodnight.elf \
 	-Wall -Wextra -Wconversion -Wsign-conversion -Wpedantic \
 	${SCRIPT_DIR}/Src/ntp_cl.cpp \
 	${SCRIPT_DIR}/Src/powerctl.cpp \
+	${SCRIPT_DIR}/Src/correction.cpp \
+	${SCRIPT_DIR}/Src/mclock.cpp \
 	${SCRIPT_DIR}/Src/main.cpp
