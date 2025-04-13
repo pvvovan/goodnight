@@ -1,0 +1,11 @@
+[Unit]
+Description=This is the manually created service to poweroff PC after 11pm
+After=network.target
+
+[Service]
+ExecStart=/home/lisa/goodnight.elf
+User=root
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
