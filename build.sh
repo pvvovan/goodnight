@@ -9,7 +9,7 @@ if [ ! -d ${DEBUG_DIR} ]; then
 	mkdir ${DEBUG_DIR}
 	cd ${DEBUG_DIR}
 	# Precomplie iostream module to prevent compilation errors
-	g++ -std=c++23 -fmodules-ts -xc++-system-header iostream string
+	g++ -std=c++23 -fmodules-ts -xc++-system-header iostream
 fi
 
 cd ${DEBUG_DIR}
@@ -19,4 +19,4 @@ g++ --std=c++23 -fmodules-ts -o ${DEBUG_DIR}/goodnight.elf \
 	${SCRIPT_DIR}/Src/powerctl.cpp \
 	${SCRIPT_DIR}/Src/correction.cpp \
 	${SCRIPT_DIR}/Src/mclock.cpp \
-	${SCRIPT_DIR}/Src/main.cpp
+	${SCRIPT_DIR}/Src/goodnight.cpp
