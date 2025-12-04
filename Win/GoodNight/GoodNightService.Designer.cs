@@ -1,6 +1,6 @@
 ﻿namespace GoodNight
 {
-    partial class Service1
+    partial class GoodNightService
     {
         /// <summary> 
         /// Required designer variable.

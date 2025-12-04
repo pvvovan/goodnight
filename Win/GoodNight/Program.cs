@@ -17,7 +17,7 @@ namespace GoodNight
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new GoodNightService()
             };
             ServiceBase.Run(ServicesToRun);
         }

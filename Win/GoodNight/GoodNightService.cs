@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace GoodNight
 {
-    public partial class Service1 : ServiceBase
+    public partial class GoodNightService : ServiceBase
     {
-        public Service1()
+        public GoodNightService()
         {
             InitializeComponent();
         }
