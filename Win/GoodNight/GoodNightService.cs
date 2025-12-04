@@ -34,7 +34,13 @@ namespace GoodNight
 
         private void OnTimerCallback(object state)
         {
-
+            NtpClient.NtpConnection ntpConnection = new NtpClient.NtpConnection("pool.ntp.org");
+            DateTime epoch = ntpConnection.GetUtc();
+            if (epoch.Hour >= 22 && epoch.Minute >= 30)
+            {
+                Process.Start("shutdown.exe",
+                    "/s /t 300 /c \"Your PC will shutdown in 5 minutes. Good Night!\"");
+            }
         }
     }
 }
