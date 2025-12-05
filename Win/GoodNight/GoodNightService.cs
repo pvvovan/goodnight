@@ -22,7 +22,7 @@ namespace GoodNight
         protected override void OnStart(string[] args)
         {
             timer = new System.Threading.Timer(OnTimerCallback);
-            timer.Change(60_000, 300_000);
+            timer.Change(300_000, 300_000);
         }
 
         protected override void OnStop()
@@ -35,8 +35,11 @@ namespace GoodNight
         private void OnTimerCallback(object state)
         {
             NtpClient.NtpConnection ntpConnection = new NtpClient.NtpConnection("pool.ntp.org");
-            DateTime epoch = ntpConnection.GetUtc();
-            if (epoch.Hour >= 22 && epoch.Minute >= 30)
+            DateTime utc = ntpConnection.GetUtc();
+            TimeZoneInfo tst = TimeZoneInfo.FindSystemTimeZoneById(
+                                                                "Central European Standard Time");
+            DateTime european = TimeZoneInfo.ConvertTime(utc, TimeZoneInfo.Utc, tst);
+            if (european.Hour >= 22 && european.Minute >= 30)
             {
                 Process.Start("shutdown.exe",
                     "/s /t 300 /c \"Your PC will shutdown in 5 minutes. Good Night!\"");
