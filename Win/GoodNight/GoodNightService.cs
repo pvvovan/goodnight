@@ -39,7 +39,7 @@ namespace GoodNight
             TimeZoneInfo tst = TimeZoneInfo.FindSystemTimeZoneById(
                                                                 "Central European Standard Time");
             DateTime european = TimeZoneInfo.ConvertTime(utc, TimeZoneInfo.Utc, tst);
-            if (european.Hour >= 22 && european.Minute >= 30)
+            if (european.Hour >= 22 && european.Minute >= 45)
             {
                 Process.Start("shutdown.exe",
                     "/s /t 300 /c \"Your PC will shutdown in 5 minutes. Good Night!\"");
